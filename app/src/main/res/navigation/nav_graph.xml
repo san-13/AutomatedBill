@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/scanPage">
+
+    <fragment
+        android:id="@+id/scanPage"
+        android:name="com.example.automatedbill.ScanPage"
+        android:label="fragment_scan_page"
+        tools:layout="@layout/fragment_scan_page" />
+    <fragment
+        android:id="@+id/billCheckout"
+        android:name="com.example.automatedbill.BillCheckout"
+        android:label="fragment_bill_checkout"
+        tools:layout="@layout/fragment_bill_checkout" />
+    <fragment
+        android:id="@+id/dashboard"
+        android:name="com.example.automatedbill.Dashboard"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/updateInventory"
+        android:name="com.example.automatedbill.UpdateInventory"
+        android:label="fragment_update_inventory"
+        tools:layout="@layout/fragment_update_inventory" />
+    <fragment
+        android:id="@+id/ledger"
+        android:name="com.example.automatedbill.Ledger"
+        android:label="fragment_ledger"
+        tools:layout="@layout/fragment_ledger" />
+</navigation>
