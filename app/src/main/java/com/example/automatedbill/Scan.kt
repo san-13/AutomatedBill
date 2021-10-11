@@ -48,7 +48,7 @@ class Scan : AppCompatActivity() {
 
 
     private fun startCamera() {
-        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+        //val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
@@ -65,9 +65,9 @@ class Scan : AppCompatActivity() {
             val imageAnalyzer = ImageAnalysis.Builder()
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
-            imageAnalyzer.setAnalyzer(cameraExecutor, ImageAnalysis.Analyzer { image ->
-                val rotationDegrees = image.imageInfo.rotationDegrees
-            })
+                .also {
+                    it.setAnalyzer(cameraExecutor, TextDetector())
+                }
 
             // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
@@ -83,6 +83,32 @@ class Scan : AppCompatActivity() {
             }
 
         }, ContextCompat.getMainExecutor(this))
+    }
+    private val mTextRecognizer by lazy {
+        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    }
+    inner class TextDetector : ImageAnalysis.Analyzer {
+
+        @SuppressLint("UnsafeOptInUsageError")
+        override fun analyze(imageProxy: ImageProxy) {
+
+            val mediaImage = imageProxy.image
+
+            if (mediaImage != null) {
+                val image =
+                    InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+
+                mTextRecognizer.process(image)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            binding.txt.text = it.result?.text
+                        }
+
+                        //TO AVOID: com.google.mlkit.common.MlKitException: Internal error has occurred when executing ML Kit tasks
+                        imageProxy.close()
+                    }
+            }
+        }
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
