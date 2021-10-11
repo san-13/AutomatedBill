@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/scanPage">
+    app:startDestination="@id/dashboard">
 
-    <fragment
-        android:id="@+id/scanPage"
-        android:name="com.example.automatedbill.ScanPage"
-        android:label="fragment_scan_page"
-        tools:layout="@layout/fragment_scan_page" />
     <fragment
         android:id="@+id/billCheckout"
         android:name="com.example.automatedbill.BillCheckout"
