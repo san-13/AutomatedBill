@@ -32,6 +32,10 @@ class Scan : AppCompatActivity() {
         binding = ActivityScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.dashboardbtn.setOnClickListener{
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+
 
         // Request camera permissions
         if (allPermissionsGranted()) {
@@ -101,6 +105,7 @@ class Scan : AppCompatActivity() {
                 mTextRecognizer.process(image)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
+                            //recognized text
                             binding.txt.text = it.result?.text
                         }
 
