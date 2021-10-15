@@ -13,8 +13,24 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <!--No action bar for splash screen-->
     <style name="Theme.AutomatedBill.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="Widget.Inventory.TextInputLayout.OutlinedBox"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeErrorColor">@color/black</item>
+        <item name="errorIconTint">@color/black</item>
+        <item name="errorTextColor">@color/black</item>
+        <item name="errorIconDrawable">@android:drawable/stat_notify_error</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
+        </item>
+    </style>
+    <style name="Widget.Inventory.ListItemTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
 </resources>
