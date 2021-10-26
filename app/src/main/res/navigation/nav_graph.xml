@@ -6,11 +6,6 @@
     app:startDestination="@id/dashboard">
 
     <fragment
-        android:id="@+id/billCheckout"
-        android:name="com.example.automatedbill.BillCheckout"
-        android:label="fragment_bill_checkout"
-        tools:layout="@layout/fragment_bill_checkout" />
-    <fragment
         android:id="@+id/dashboard"
         android:name="com.example.automatedbill.Dashboard"
         android:label="fragment_dashboard"
@@ -18,6 +13,9 @@
         <action
             android:id="@+id/action_dashboard_to_inventory"
             app:destination="@id/inventory" />
+        <action
+            android:id="@+id/action_dashboard_to_ledger"
+            app:destination="@id/ledger" />
     </fragment>
     <fragment
         android:id="@+id/inventory"

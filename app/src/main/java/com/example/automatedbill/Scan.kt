@@ -36,7 +36,6 @@ class Scan : AppCompatActivity() {
             startActivity(Intent(this,MainActivity::class.java))
         }
 
-
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()

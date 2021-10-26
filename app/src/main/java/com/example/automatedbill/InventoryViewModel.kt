@@ -1,21 +1,39 @@
 package com.example.automatedbill
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.example.automatedbill.room.Bill
+import com.example.automatedbill.room.CurrentBill
 import com.example.automatedbill.room.Item
 import com.example.automatedbill.room.ItemDao
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
 
     val allItems:LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    val allBills: LiveData<List<Bill>> = itemDao.getBills(5).asLiveData()
+
 
     fun retrieveItem(id:Int):LiveData<Item>{
         return itemDao.getItem(id).asLiveData()
+    }
+    fun retrieveBill(id:Int):LiveData<Bill>{
+        return itemDao.getBill(id).asLiveData()
+    }
+    fun currentBill(billno: Int): LiveData<List<Bill>> {
+        return itemDao.getCurrBill(billno).asLiveData()
     }
 
     fun deleteItem(item: Item){
         viewModelScope.launch {
             itemDao.delete(item)
+        }
+    }
+    //for bill
+    fun deleteBillItem(bill: Bill){
+        viewModelScope.launch {
+            itemDao.deletebill(bill)
         }
     }
     private fun getUpdatedItemEntry(id:Int,name:String,price: String,quantity: String):Item{
@@ -35,6 +53,25 @@ class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
             itemDao.update(item)
         }
     }
+    //for bill
+    private fun getUpdatedBillItemEntry(billno:String,id: Int,name: String,price: String,quantity: String):Bill{
+        return Bill(
+            billNo = billno.toInt(),
+            id = id,
+            itemName = name,
+            itemPrice = price.toDouble(),
+            itemQuantity = quantity.toInt()
+        )
+    }
+    fun updateBillItem(billno: String,id: Int,name:String,price: String,quantity: String){
+        val updatedBillItem=getUpdatedBillItemEntry(billno,id, name, price, quantity)
+        updateBillItem(updatedBillItem)
+    }
+    private fun updateBillItem(bill: Bill){
+        viewModelScope.launch {
+            itemDao.updatebill(bill)
+        }
+    }
     private fun insertItem(item:Item){
         viewModelScope.launch{
             itemDao.insert(item)
@@ -51,12 +88,36 @@ class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
         val newItem=getNewItemEntry(item,price,quantity)
         insertItem(newItem)
     }
+    //for bill
+    private fun insertBillItem(bill: Bill){
+        viewModelScope.launch {
+            itemDao.insertbill(bill)
+        }
+    }
+    fun getNewBillItemEntry(billno:String, item:String, price:String,quantity: String):Bill{
+        return Bill(
+            billNo=billno.toInt(),
+            itemName = item,
+            itemPrice = price.toDouble(),
+            itemQuantity = quantity.toInt()
+        )
+    }
+
+    fun addNewBillItem(billno:String,item:String,price:String,quantity:String){
+        val newBillItem=getNewBillItemEntry(billno,item,price,quantity)
+        insertBillItem(newBillItem)
+
+    }
+
     fun isEntryValid(item:String,price:String,quantity:String):Boolean{
         if(item.isBlank()||price.isBlank()||quantity.isBlank()){
             return false
         }
         return true
     }
+
+
+
 
 }
 class InventoryViewModelFactory(private val itemDao: ItemDao):ViewModelProvider.Factory{

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.automatedbill.adapters.ItemListAdapter
 import com.example.automatedbill.databinding.FragmentInventoryBinding
 
 

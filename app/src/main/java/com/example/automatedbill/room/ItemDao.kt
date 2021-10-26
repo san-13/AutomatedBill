@@ -19,4 +19,22 @@ interface ItemDao {
 
     @Query("Select * from Item WHERE id=:id")
     fun getItem(id:Int):Flow<Item>
+
+    @Insert
+    suspend fun insertbill(bill: Bill)
+
+    @Update
+    suspend fun updatebill(bill: Bill)
+
+    @Delete
+    suspend fun deletebill(bill: Bill)
+
+    @Query("Select * from Bill WHERE billNo=:billno Order by id ASC")
+    fun getBills(billno:Int): Flow<List<Bill>>
+
+    @Query("Select * from Bill WHERE id=:id")
+    fun getBill(id:Int):Flow<Bill>
+
+    @Query("Select * from Bill Where billNo = :billno Order by id ASC")
+    fun getCurrBill(billno:Int):Flow<List<Bill>>
 }

@@ -1,4 +1,4 @@
-package com.example.automatedbill
+package com.example.automatedbill.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,12 +9,12 @@ import com.example.automatedbill.databinding.InventoryListBinding
 import com.example.automatedbill.room.Item
 
 class ItemListAdapter(private val onItemClicked:(Item)->Unit):
-    ListAdapter<Item,ItemListAdapter.ItemViewHolder>(DiffCallback) {
+    ListAdapter<Item, ItemListAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ItemListAdapter.ItemViewHolder {
+    ): ItemViewHolder {
         return ItemViewHolder(
             InventoryListBinding.inflate(
                 LayoutInflater.from(
@@ -23,7 +23,7 @@ class ItemListAdapter(private val onItemClicked:(Item)->Unit):
             )
         )
     }
-    override fun onBindViewHolder(holder: ItemListAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
         holder.itemView.setOnClickListener{
             onItemClicked(current)
