@@ -5,13 +5,17 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.example.automatedbill.databinding.ActivityScanBinding
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -36,7 +40,6 @@ class Scan : AppCompatActivity() {
             startActivity(Intent(this,MainActivity::class.java))
         }
 
-
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
@@ -48,8 +51,10 @@ class Scan : AppCompatActivity() {
         // Set up the listener for take photo button
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-    }
 
+
+
+    }
 
     private fun startCamera() {
         //val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
