@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.automatedbill.adapters.AllBillsAdapter
+import androidx.navigation.fragment.navArgs
 import com.example.automatedbill.databinding.FragmentLedgerBinding
+import com.example.automatedbill.databinding.FragmentPrevBillBinding
 
 
-class Ledger : Fragment() {
-    private var _binding:FragmentLedgerBinding?=null
+class prev_bill : Fragment() {
+
+    private var _binding: FragmentPrevBillBinding?=null
     private val binding get()=_binding!!
-
-    private val adapter by lazy{AllBillsAdapter()}
+    private val navigationArgs:prev_billArgs by navArgs()
 
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
@@ -24,23 +23,20 @@ class Ledger : Fragment() {
         )
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       _binding= FragmentLedgerBinding.inflate(inflater,container,false)
-        return binding.root
+        _binding= FragmentPrevBillBinding.inflate(inflater,container,false)
+    return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.billnoRecycler.adapter=adapter
-        binding.billnoRecycler.layoutManager=LinearLayoutManager(this.context)
-        viewModel.allBills.observe(this.viewLifecycleOwner){
-            adapter.setData(it)
+        viewModel.retrieveBillImage(navigationArgs.id).observe(this.viewLifecycleOwner){
+            binding.bill.setImageBitmap(it.bill)
         }
-
     }
 
 

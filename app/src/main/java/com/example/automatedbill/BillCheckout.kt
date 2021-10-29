@@ -1,22 +1,36 @@
 package com.example.automatedbill
 
+import android.content.ContentResolver
+import android.content.ContentValues
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
 import android.nfc.Tag
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.automatedbill.adapters.BillListAdapter
 import com.example.automatedbill.databinding.FragmentBillCheckoutBinding
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import javax.security.auth.login.LoginException
 
 class BillCheckout : Fragment() {
-
+    val TAG = "cbill"
     val navigationArgs: BillCheckoutArgs by navArgs()
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
@@ -58,11 +72,64 @@ class BillCheckout : Fragment() {
                 val action = BillCheckoutDirections.actionBillCheckoutToEnterManually(itemid = binding.billno.text.toString())
                 findNavController().navigate(action)
             }
+        //share
+        binding.shareBtn.setOnClickListener{
+            var bit=getScreenShotFromView(binding.billRecycler)
+            Log.i(TAG, "onViewCreated: run successfull")
+            if(bit!=null){
+                share(bit)
+            }
+            else{
+                Log.i("cbill", "could'nt capture ")
+            }
+
+        }
 
     }
+        private fun getScreenShotFromView(V: View):Bitmap?{
+            Log.i(TAG, "getScreenShotFromView:ran ")
+            var screenshot:Bitmap?=null
+            try{
+                screenshot= Bitmap.createBitmap(V.measuredWidth, V.measuredHeight, Bitmap.Config.ARGB_8888 )
+                val canvas =Canvas(screenshot)
+                V.draw(canvas)
+            }
+            catch (e:Exception) {
+                Log.e("cbill","Failed to capure")
+            }
+            return screenshot
+        }
 
-    /*private fun getcbill(billno:Int){
-        viewModel.cbill(billno)
-    }*/
+    private fun share(bitmap: Bitmap){
+       /* val filename="${System.currentTimeMillis()}.jpg"
+        var fos:OutputStream?=null
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            activity?.contentResolver?.also {resolver->
+                val contentvalues=ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+                val imageUri:Uri?=resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentvalues)
+                fos = imageUri?.let { resolver.openOutputStream(it) }
+            }
+        }else{
+            val imageDir=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val image= File(imageDir,filename)
+            fos=FileOutputStream(image)
+        }
+        fos?.use {
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,it)
+        }*/
+
+        val outputstream= ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputstream)
+         val path=MediaStore.Images.Media.insertImage(requireContext().contentResolver,bitmap,"tempimage",null)
+        val imageUri=Uri.parse(path)
+        val intent=Intent(Intent.ACTION_SEND).setType("image/*").putExtra(Intent.EXTRA_STREAM,imageUri)
+        viewModel.getbill(navigationArgs.billno.toInt(),bitmap)
+        Log.i(TAG, "share: intent start failed")
+        this.startActivity(intent)
+    }
 
 }

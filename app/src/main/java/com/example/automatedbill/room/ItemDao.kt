@@ -37,4 +37,13 @@ interface ItemDao {
 
     @Query("Select * from Bill Where billNo = :billno Order by id ASC")
     fun getCurrBill(billno:Int):Flow<List<Bill>>
+
+    @Insert
+    suspend fun savebill(allBills: AllBills)
+
+    @Query("Select * from AllBills Order by id ASC")
+    fun getAllBills():Flow<List<AllBills>>
+
+    @Query("Select * from AllBills Where id=:id")
+    fun getBillImage(id:Int):Flow<AllBills>
 }

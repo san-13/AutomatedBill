@@ -40,6 +40,8 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph_bill"
             app:layout_constraintTop_toBottomOf="@id/campreview"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>

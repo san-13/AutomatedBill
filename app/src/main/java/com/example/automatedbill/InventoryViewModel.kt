@@ -1,18 +1,16 @@
 package com.example.automatedbill
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.automatedbill.room.Bill
-import com.example.automatedbill.room.CurrentBill
-import com.example.automatedbill.room.Item
-import com.example.automatedbill.room.ItemDao
+import com.example.automatedbill.room.*
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
 class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
 
     val allItems:LiveData<List<Item>> = itemDao.getItems().asLiveData()
-    val allBills: LiveData<List<Bill>> = itemDao.getBills(5).asLiveData()
+    val allBills: LiveData<List<AllBills>> = itemDao.getAllBills().asLiveData()
 
 
     fun retrieveItem(id:Int):LiveData<Item>{
@@ -23,6 +21,10 @@ class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
     }
     fun currentBill(billno: Int): LiveData<List<Bill>> {
         return itemDao.getCurrBill(billno).asLiveData()
+    }
+
+    fun retrieveBillImage(id: Int):LiveData<AllBills>{
+        return itemDao.getBillImage(id).asLiveData()
     }
 
     fun deleteItem(item: Item){
@@ -116,7 +118,22 @@ class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
         return true
     }
 
-
+    //test
+    private fun savebill(allBills: AllBills){
+        viewModelScope.launch {
+            itemDao.savebill(allBills)
+        }
+    }
+    private fun getbillEntry(billno:Int,bill:Bitmap):AllBills{
+        return AllBills(
+            billno = billno,
+            bill = bill
+        )
+    }
+    fun getbill(billno: Int,bill:Bitmap){
+        val newbill=getbillEntry(billno,bill)
+        savebill(newbill)
+    }
 
 
 }

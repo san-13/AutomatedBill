@@ -33,7 +33,11 @@
         android:id="@+id/ledger"
         android:name="com.example.automatedbill.Ledger"
         android:label="fragment_ledger"
-        tools:layout="@layout/fragment_ledger" />
+        tools:layout="@layout/fragment_ledger" >
+        <action
+            android:id="@+id/action_ledger_to_prev_bill"
+            app:destination="@id/prev_bill" />
+    </fragment>
     <dialog
         android:id="@+id/addItem"
         android:name="com.example.automatedbill.AddItem"
@@ -55,4 +59,12 @@
             android:name="itemId"
             app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/prev_bill"
+        android:name="com.example.automatedbill.prev_bill"
+        android:label="fragment_prev_bill"
+        tools:layout="@layout/fragment_prev_bill" >
+        <argument android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
