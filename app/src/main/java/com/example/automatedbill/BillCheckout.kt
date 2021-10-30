@@ -18,11 +18,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.automatedbill.adapters.BillListAdapter
 import com.example.automatedbill.databinding.FragmentBillCheckoutBinding
+import kotlinx.android.synthetic.main.inventory_list.*
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -51,6 +54,7 @@ class BillCheckout : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val bno = navigationArgs.billno.toString().toInt()
         binding.billno.text=bno.toString()
         Log.i("cbill", "onViewCreated: $bno")
@@ -68,9 +72,20 @@ class BillCheckout : Fragment() {
                     }
                 }
         binding.billRecycler.layoutManager=LinearLayoutManager(this.context)
+
         binding.addbillnewitembtn.setOnClickListener {
-                val action = BillCheckoutDirections.actionBillCheckoutToEnterManually(itemid = binding.billno.text.toString())
+            if(viewModel.x != null){
+                val action=BillCheckoutDirections.actionBillCheckoutToEnterManually(itemid = binding.billno.text.toString(), itemname = viewModel.x.toString())
+                  findNavController().navigate(action)
+
+            }
+            else {
+                val action = BillCheckoutDirections.actionBillCheckoutToEnterManually(
+                    itemid = binding.billno.text.toString(),
+                    itemname = ""
+                )
                 findNavController().navigate(action)
+            }
             }
         //share
         binding.shareBtn.setOnClickListener{
@@ -82,8 +97,9 @@ class BillCheckout : Fragment() {
             else{
                 Log.i("cbill", "could'nt capture ")
             }
-
         }
+
+
 
     }
         private fun getScreenShotFromView(V: View):Bitmap?{

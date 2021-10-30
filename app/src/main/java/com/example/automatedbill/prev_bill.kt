@@ -34,6 +34,7 @@ class prev_bill : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.retrieveBillImage(navigationArgs.id).observe(this.viewLifecycleOwner){
             binding.bill.setImageBitmap(it.bill)
         }

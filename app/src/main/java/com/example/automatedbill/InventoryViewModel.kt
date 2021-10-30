@@ -4,14 +4,17 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.automatedbill.room.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
 class InventoryViewModel(private val itemDao: ItemDao):ViewModel() {
 
     val allItems:LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    val allitems: LiveData<List<Item>> = itemDao.getitems().asLiveData()
     val allBills: LiveData<List<AllBills>> = itemDao.getAllBills().asLiveData()
 
+    var x:String?=null
 
     fun retrieveItem(id:Int):LiveData<Item>{
         return itemDao.getItem(id).asLiveData()
