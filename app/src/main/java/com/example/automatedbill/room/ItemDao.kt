@@ -1,5 +1,6 @@
 package com.example.automatedbill.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,9 @@ interface ItemDao {
 
     @Query("Select * from Item Order by id ASC")
     fun getItems(): Flow<List<Item>>
+
+    @Query("Select * from Item Order by id ASC")
+    fun getitems(): Flow<List<Item>>
 
     @Query("Select * from Item WHERE id=:id")
     fun getItem(id:Int):Flow<Item>

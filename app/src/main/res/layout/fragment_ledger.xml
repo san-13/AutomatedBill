@@ -10,6 +10,6 @@
        android:layout_height="wrap_content"
        android:id="@+id/billno_recycler"
        android:layout_gravity="center"
-       tools:listitem="@layout/allBillsList"/>
+       tools:listitem="@layout/all_bills_list"/>
 
 </FrameLayout>

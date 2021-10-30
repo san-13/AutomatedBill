@@ -35,6 +35,7 @@ class EnterManually : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.name.setText(navigationArgs.itemname)
         binding.addBtn.setOnClickListener{
             addNewItem()
         }

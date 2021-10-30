@@ -28,8 +28,10 @@ class GetBillNo : Fragment() {
 
         binding.nextBtn.setOnClickListener{
             val billno=binding.billno.text.toString()
-            val action = GetBillNoDirections.actionGetBillNoToBillCheckout(billno=billno)
-            this.findNavController().navigate(action)
+            if(!billno.isEmpty()) {
+                val action = GetBillNoDirections.actionGetBillNoToBillCheckout(billno = billno)
+                this.findNavController().navigate(action)
+            }
         }
 
     }

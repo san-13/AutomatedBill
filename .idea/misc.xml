@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_scan.xml" value="0.19332985930171964" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.13333333333333333" />
+        <entry key="app/src/main/res/layout/all_bills_list.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/billno_list.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_add_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_bill_checkout.xml" value="0.25" />

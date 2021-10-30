@@ -11,15 +11,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.Transformation
+import androidx.activity.viewModels
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations.map
 import androidx.recyclerview.widget.RecyclerView
 import com.example.automatedbill.databinding.ActivityScanBinding
+import com.example.automatedbill.room.Item
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.toList
 import java.io.File
 import java.lang.reflect.Modifier
 import java.nio.ByteBuffer
@@ -30,11 +38,23 @@ import java.util.concurrent.Executors
 class Scan : AppCompatActivity() {
     private lateinit var binding:ActivityScanBinding
     private lateinit var cameraExecutor: ExecutorService
+    private val viewModel: InventoryViewModel by viewModels{
+        InventoryViewModelFactory(
+            (this.application as InventoryApplication).database.itemDao()
+        )
+    }
+    private lateinit var allitems: List<Item>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.i("cbill", "onCreate: dao call failed")
+        val Observer = Observer<List<Item>>{ item->
+            allitems = item
+        }
+        viewModel.allitems.observe(this,Observer)
+        Log.i("cbill", "onCreate: find the problem")
 
         binding.dashboardbtn.setOnClickListener{
             startActivity(Intent(this,MainActivity::class.java))
@@ -111,7 +131,16 @@ class Scan : AppCompatActivity() {
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             //recognized text
-                            binding.txt.text = it.result?.text
+                            //binding.txt.text = it.result?.text
+                            Log.i("cbill", "analyze: failed at loop")
+                           for(item in allitems){
+                                Log.i("cbill", "analyze: failed at if")
+                                if(it.result?.text==item.itemName){
+                                    binding.found.text="Click New Item to add " + item.itemName
+                                    viewModel.x=item.itemName
+                                }
+                            }
+
                         }
 
                         //TO AVOID: com.google.mlkit.common.MlKitException: Internal error has occurred when executing ML Kit tasks
