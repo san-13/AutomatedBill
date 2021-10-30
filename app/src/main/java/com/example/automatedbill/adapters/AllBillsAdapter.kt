@@ -21,8 +21,8 @@ class AllBillsAdapter: RecyclerView.Adapter<AllBillsAdapter.MyViewHoler>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHoler, position: Int) {
-            holder.itemView.billno.text= allBills[position].billno.toString()
-            holder.itemView.bill_thumbnail.setImageBitmap(allBills[position].bill)
+            holder.itemView.billno.text="Bill No. : " + allBills[position].billno.toString()
+           // holder.itemView.bill_thumbnail.setImageBitmap(allBills[position].bill)
         holder.itemView.setOnClickListener {
             val action=LedgerDirections.actionLedgerToPrevBill(allBills[position].id)
                 holder.itemView.findNavController().navigate(action)

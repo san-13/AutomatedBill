@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/billboxbg.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/billrecbg.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/mask_group.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_bill.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_scan.xml" value="0.19332985930171964" />
@@ -18,7 +21,7 @@
         <entry key="app/src/main/res/layout/fragment_edit_item.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_enter_manually.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_get_bill_no.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/fragment_inventory.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/fragment_inventory.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_ledger.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_prev_bill.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_scan_page.xml" value="0.22" />
