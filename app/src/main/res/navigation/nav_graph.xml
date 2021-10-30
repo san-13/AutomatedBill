@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/dashboard">
+    app:startDestination="@id/ledger">
 
     <fragment
         android:id="@+id/dashboard"
@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_ledger_to_prev_bill"
             app:destination="@id/prev_bill" />
+        <action
+            android:id="@+id/action_ledger_to_inventory"
+            app:destination="@id/inventory" />
     </fragment>
     <dialog
         android:id="@+id/addItem"
@@ -59,12 +62,12 @@
             android:name="itemId"
             app:argType="integer" />
     </dialog>
-    <fragment
+    <dialog
         android:id="@+id/prev_bill"
         android:name="com.example.automatedbill.prev_bill"
         android:label="fragment_prev_bill"
         tools:layout="@layout/fragment_prev_bill" >
         <argument android:name="id"
             app:argType="integer" />
-    </fragment>
+    </dialog>
 </navigation>
