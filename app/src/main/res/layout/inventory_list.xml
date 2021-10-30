@@ -8,7 +8,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:background="@color/background_blue">
 
     <TextView
         android:id="@+id/item_name"
@@ -16,6 +17,7 @@
         android:layout_width="180dp"
         android:layout_marginStart="@dimen/margin_between_elements"
         android:fontFamily="sans-serif"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/item_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,6 +30,7 @@
         android:layout_below="@+id/item_name"
         android:layout_marginStart="@dimen/margin_between_elements"
         android:fontFamily="sans-serif-medium"
+        android:textColor="@color/white"
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/item_quantity"
         app:layout_constraintHorizontal_weight="1"
@@ -40,6 +43,7 @@
         style="@style/Widget.Inventory.ListItemTextView"
         android:layout_width="80dp"
         android:layout_alignParentEnd="true"
+        android:textColor="@color/white"
         android:layout_marginEnd="@dimen/margin_between_elements"
         android:fontFamily="sans-serif-medium"
         android:textAlignment="center"

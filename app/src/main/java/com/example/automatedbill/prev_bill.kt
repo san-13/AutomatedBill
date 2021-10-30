@@ -5,13 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.automatedbill.databinding.FragmentLedgerBinding
 import com.example.automatedbill.databinding.FragmentPrevBillBinding
 
 
-class prev_bill : Fragment() {
+class prev_bill : DialogFragment() {
 
     private var _binding: FragmentPrevBillBinding?=null
     private val binding get()=_binding!!

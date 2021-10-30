@@ -5,13 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:background="@color/teal_700">
+    android:background="@drawable/starting_look">
 <TextView
     android:layout_width="wrap_content"
+    android:id="@+id/oxy"
     android:layout_height="wrap_content"
-    android:text="SplashScreen"
+    android:text="Oxy"
+    android:textSize="36sp"
+    android:textColor="@color/white"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R"
+        android:textSize="38sp"
+        android:textColor="@color/teal_200"
+        app:layout_constraintStart_toEndOf="@id/oxy"
+        app:layout_constraintBottom_toBottomOf="@id/oxy"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
